@@ -1,3 +1,5 @@
+
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'estudiantes-app';
+  title = 'estudiantes-p2';
+  nombre:string='arquitecturas empresariales parte 2';
 }

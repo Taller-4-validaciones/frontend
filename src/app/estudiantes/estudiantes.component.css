@@ -1,0 +1,9 @@
+.edit-icon::before {
+  content: '\00270e';
+  color: white;
+}
+
+.trash-icon::before {
+  content: '\01f5d9';
+  color: white;
+}

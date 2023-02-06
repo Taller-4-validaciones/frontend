@@ -1,0 +1,50 @@
+<div class="card  mb-3">
+    <div class="card-header font-weight-bold">Estudiantes</div>
+    <div class="card-body">
+      <h5 class="card-title">Listado de estudiantes</h5>
+      <div class="my-2 text-left">
+        <button class="btn btn-dark btn-rounded" type="button" [routerLink]="['/estudiantes/form']">
+          Crear Estudiante
+        </button>
+      </div>
+      <div *ngIf="estudiantes?.length==0"  class="alert alert-info" >
+          No hay registros en la base de datos
+      </div>
+      <div class="table-responsive py-5">
+        <table class="table table-bordered table-hover" *ngIf="estudiantes.length>0">
+          <thead class="thead-dark">
+              <tr>
+                  <th scope="col">codigo</th>
+                  <th scope="col">nombres</th>
+                  <th scope="col">apellidos</th>
+                  <th scope="col">email</th>
+                  <th scope="col">ciudad</th>
+                  <th scope="col">titulo Univ</th>
+                  <th scope="col">telefono</th>
+                  <th scope="col">genero</th>
+                  <th scope="col">fecha de creación</th>
+                  <th scope="col">Acción</th>
+              </tr>
+
+          </thead>
+          <tbody>
+              <tr *ngFor="let estudiante of estudiantes">
+                  <td scope="row">{{estudiante.codigo}}</td>
+                  <td>{{estudiante.nombre}}</td>
+                  <td>{{estudiante.apellido}}</td>
+                  <td>{{estudiante.email}}</td>
+                  <td>{{estudiante.ciudad}}</td>
+                  <td>{{estudiante.tituloUniv}}</td>
+                  <td>{{estudiante.telefono}}</td>
+                  <td>{{estudiante.genero}}</td>
+                  <td>{{estudiante.createAt}}</td>
+                  <td>
+                    <button class="btn btn-primary btn-rounded" type="button" [routerLink]="['/estudiantes/form',estudiante.codigo]"><span class="edit-icon"></span></button>
+                    <button class="btn btn-danger btn-rounded" type="button" (click)="delete(estudiante.codigo)"><span class="trash-icon"></span></button>
+                  </td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

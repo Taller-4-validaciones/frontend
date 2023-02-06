@@ -1,0 +1,136 @@
+<div class="container">
+  <div class="card">
+      <div class="card-header font-weight-bold">{{ titulo }}</div>
+      <div class="card-body">
+        <ul class="alert alert-danger" *ngIf="errores.length">
+          <li *ngFor="let err of errores | keyvalue">
+            <span>{{err.value}}</span>
+          </li>
+        </ul>
+        <form #estudianteForm="ngForm">
+          <div class="form-group row">
+            <label for="codigo" class="col-form-label col-sm-2">Codigo</label>
+            <div class="col-sm-6">
+              <input type="number" class="form-control" [(ngModel)]="estudiante.codigo" name="codigo" required #codigo="ngModel" [disabled]="estudiante.id != null">
+              <div class="alert alert-danger" *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)">
+                <div *ngIf="codigo.errors?.['required']">
+                  Codigo Requerido
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="estudiante.nombre" name="nombre" required minlength="5" maxlength="45" #nombre="ngModel">
+              <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                <div *ngIf="nombre.errors?.['required']">
+                  Nombre Requerido
+                </div>
+                <div *ngIf="nombre.errors?.['minlength']">
+                  Nombre debe tener al menos 5 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="estudiante.apellido" name="apellido" required minlength="5" maxlength="45" #apellido="ngModel">
+              <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                <div *ngIf="apellido.errors?.['required']">
+                  Apellido Requerido
+                </div>
+                <div *ngIf="apellido.errors?.['minlength']">
+                  Apellido debe tener al menos 5 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="email" class="col-form-label col-sm-2">Email</label>
+            <div class="col-sm-6">
+              <input type="email" class="form-control" [(ngModel)]="estudiante.email" name="email" required email #email="ngModel">
+              <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+                <div *ngIf="email.errors?.['required']">
+                  Email Requerido
+                </div>
+                <div *ngIf="email.errors?.['email']">
+                  Email debe tener formato válido
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="ciudad" class="col-form-label col-sm-2">Ciudad</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="estudiante.ciudad" name="ciudad" required minlength="5" maxlength="45" #ciudad="ngModel">
+              <div class="alert alert-danger" *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)">
+                <div *ngIf="ciudad.errors?.['required']">
+                  Ciudad Requerido
+                </div>
+                <div *ngIf="ciudad.errors?.['minlength']">
+                  Ciudad debe tener al menos 5 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="tituloUniv" class="col-form-label col-sm-2">Titulo universitario</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="estudiante.tituloUniv" name="tituloUniv" required minlength="5" maxlength="45" #tituloUniv="ngModel">
+              <div class="alert alert-danger" *ngIf="tituloUniv.invalid && (tituloUniv.dirty || tituloUniv.touched)">
+                <div *ngIf="tituloUniv.errors?.['required']">
+                  Titulo universitario Requerido
+                </div>
+                <div *ngIf="tituloUniv.errors?.['minlength']">
+                  Titulo universitario debe tener al menos 5 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="telefono" class="col-form-label col-sm-2">Telefono</label>
+            <div class="col-sm-6">
+              <input type="number" class="form-control" [(ngModel)]="estudiante.telefono" name="telefono" required #telefono="ngModel">
+              <div class="alert alert-danger" *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)">
+                <div *ngIf="telefono.errors?.['required']">
+                  Telefono Requerido
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="genero" class="col-form-label col-sm-2">Genero</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="estudiante.genero" name="genero" required maxlength="15" #genero="ngModel">
+              <div class="alert alert-danger" *ngIf="genero.invalid && (genero.dirty || genero.touched)">
+                <div *ngIf="genero.errors?.['required']">
+                  Genero Requerido
+                </div>
+                <div *ngIf="apellido.errors?.['maxlength']">
+                  Genero debe tener maximo 6 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <button [disabled]="!estudianteForm.form.valid" class="btn btn-success" role="button" (click)='crearEstudiante()' *ngIf="!estudiante.id else elseBlock">Crear</button>
+              <ng-template #elseBlock>
+                <button class="btn btn-success" role="button" (click)='updateEstudiante()' [disabled]="!estudianteForm.form.valid">Editar</button>
+              </ng-template>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
